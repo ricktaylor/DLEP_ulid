@@ -1,0 +1,80 @@
+# Introduction
+
+
+THIS TEXT IS IN FLUX...
+
+
+The Dynamic Link Exchange Protocol [](#I-D.ietf-manet-dlep) describes a
+protocol for modems to advertise the status of wireless links between reachable
+destinations to attached routers. The core specification of the protocol assumes
+that every modem in the radio network has an attached DLEP router, and the MAC
+address of the DLEP interface on the router is used to identify the destination
+in the network for purposes of reporting the state and quality of the link to
+that destination.
+
+There are some classes of modems where the concept of the destination router
+does not apply, as the modem provides connectivity into some infrastructure or
+backbone network, without an obvious DLEP router. However, there is benefit in
+being able to use the DLEP protocol to report link state and quality from the
+local modem to the infrastructure or backbone. Examples of such devices can
+include LTE modems, IEEE 802.11 stations not in ad-hoc mode, and some satellite
+terminals.
+
+To enable routers to take advantage of the DLEP protocol this extension
+adds a single enhancement to the DLEP protocol: A new Upstream Link Identifier
+Data Item. This Data Item replaces the use of the MAC Address Data Item whenever
+the DLEP destination does not have a router reachable by MAC address.
+
+## Requirements
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", 
+"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be 
+interpreted as described in BCP 14, RFC 2119 [](#RFC2119).
+
+# Operation
+
+To use this extension, as with any other DLEP extension, the extension MUST be
+announced during DLEP session initialization, and if both DLEP peers agree to
+the use of the extension, then the Upstream Link Identifier Data Item MAY be used.
+
+* I'm sure there's more to say here...
+
+## Upstream Link Identifier Data Item
+
+The Upstream Link Identifier Data Item Data Item MAY be used whenever a MAC
+Address Data Item is defined as useable in core DLEP.
+
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | Data Item Type                | Length                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                  Upstream Link Identifier...                  :
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+Data Item Type:
+:    TBD
+
+Length:
+:    > 0, 4 RECOMMENDED.
+
+Upstream Link Identifier:
+:    The unique identifier of the upstream link destination.  This identifier
+     has no implicit meaning and is only used to discriminate between multiple upstream links.
+
+# Security Considerations
+
+As an extension to the core DLEP protocol, the security considerations of that 
+protocol apply to this extension.  This extension adds no additional security 
+mechanisms or features.
+
+None of the features introduced by this extension require extra consideration
+by an implementation.
+
+# IANA Considerations
+
+This section specifies requests to IANA.
+
+## Registration
+
+* A new DLEP extension code, from the DLEP extension codes registry.

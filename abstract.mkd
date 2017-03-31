@@ -1,0 +1,12 @@
+There exists a class of radio devices that maintain a varying link to some 
+backbone network infrastructure, where the ability to announce link state and DLEP metrics is desired, but the 
+concept of a DLEP destination router for the backbone does not apply. 
+
+This document introduces an optional extension to the core DLEP specification,
+allowing the DLEP protocol to function between a router and a modem connected to
+such an infrastructure.
+
+Note:
+
+* This document is intended as an extension to the core DLEP specification, and
+  readers are expected to be fully conversant with the operation of core DLEP.
