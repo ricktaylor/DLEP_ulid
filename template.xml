@@ -15,7 +15,7 @@
 <?rfc compact="yes"?>
 <?rfc comments="yes"?>
 
-<rfc ipr="trust200902" docName="draft-dlep-lid-00">
+<rfc category="std" ipr="trust200902" docName="draft-dlep-lid-00">
 	<front>
 		<title>Link Identifier Extension to DLEP</title>
 		<author initials="R.T." surname="Taylor" fullname="Rick Taylor">
