@@ -1,10 +1,21 @@
-There exists a class of radio devices that maintain a varying link to some 
-backbone network infrastructure, where the ability to announce link state and DLEP metrics is desired, but the 
-concept of a DLEP destination router for the backbone does not apply. 
+
+There exists a class of modems that wish to support the Dynamic Link
+Exchange Protocol [(DLEP)](#I-D.ietf-manet-dlep) but do not present a
+single Layer 2 network domain as required by DLEP. Such devices may be:
+
+* Modems that maintain a varying link to some upstream backbone network
+  infrastructure, where the ability to announce link state and DLEP
+  metrics is desired, but the concept of a DLEP destination router for
+  the backbone does not apply. Examples of such devices can include LTE
+  modems, IEEE 802.11 stations not in ad-hoc mode, and some satellite
+  terminals.
+
+* Modems that provide Layer 3 wide area network connectivity between
+  devices, where individual DLEP destinations do exist, but are not
+  directly reachable by MAC address.
 
 This document introduces an optional extension to the core DLEP specification,
-allowing the DLEP protocol to function between a router and a modem connected to
-such an infrastructure.
+allowing DLEP to be used between routers and modems that operate in this way.
 
 Note:
 

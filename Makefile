@@ -3,7 +3,7 @@ TEMPLATE = template.xml
 
 SOURCES = \
 	abstract.mkd \
-	DLEP_ulid.mkd \
+	DLEP_lid.mkd \
 	appendices.mkd
 	
 REFERENCES = 
