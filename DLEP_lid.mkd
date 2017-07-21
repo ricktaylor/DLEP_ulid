@@ -1,6 +1,6 @@
 # Introduction
 
-The Dynamic Link Exchange Protocol [(DLEP)](#I-D.ietf-manet-dlep) describes a
+The Dynamic Link Exchange Protocol [(DLEP)](#RFC8175) describes a
 protocol for modems to advertise the status of wireless links between reachable
 destinations to attached routers. The core specification of the protocol assumes
 that every modem in the radio network has an attached DLEP router, and the MAC
@@ -25,7 +25,6 @@ indicating that the destination is not reachable via a single Layer 2
 domain. A router can use this knowledge to influence any routing or
 flow-control decisions regarding traffic to this destination,
 understanding that such decisions apply at Layer 3.
-
 
 ## Requirements
 
@@ -56,18 +55,18 @@ NOT attempt to re-use the MAC Address Data Item to perform some kind of
 sleight-of-hand, assuming that the router will notice the DLEP Peer Type
 of the modem is special in some way.
 
-Even when the Link Identifiers extension is in use for a DLEP session,
-either peer MAY send and receive Messages concerning DLEP destinations that are
-reachable via a single Layer 2 domain, using the standard DLEP MAC Address Data
-Item. This allows modems that support hybrid functionality of directly
-connected Layer 2 peers, as well as upstream links to some kind of
-infrastructure, as well as multicast logical destinations.
+Even when the Link Identifiers extension is in use for a DLEP session, both
+peers MUST support sending and receiving Messages concerning DLEP destinations
+using the standard DLEP MAC Address Data Item, as the use of this extension does
+not alter the representation of multicast logical destinations.
 
 ## Identifier Restrictions
 
-Within a single DLEP session, all identifiers used by this extension,
-both logical and physical, MUST be unique, and it is RECOMMENDED that
-they be 4 octets in length.
+Within a single DLEP session, all identifiers used by this extension, both
+logical and physical, MUST be unique, and MUST be of the same octet length as
+the MAC address of the interface in use for the DLEP session, as per MAC Address
+Data Items. This removes the need for an extra LID length negotiation step
+during Session Initialization.
 
 Identifiers MUST NOT be reused, i.e. an indentifier that has
 been used to refer to one destination MUST NOT be recycled to refer to a
@@ -76,6 +75,10 @@ different destination within the lifetime of a single DLEP session.
 The method for generating identifiers is a modem implementation matter
 and out of scope of this document. Routers MUST NOT make any
 assumptions about the meaning of identifiers, or how identifiers are generated.
+
+Router implementations MUST NOT assume that LIDs will not clash with any MAC
+Address Data Items also in use during the DLEP session, LIDs exist in a separate
+numbering space.
 
 ## Link Identifier Data Item
 
@@ -98,7 +101,7 @@ Data Item Type:
 :    TBD2
 
 Length:
-:    \>0, 4 RECOMMENDED.
+:    Same as the MAC Address Data Item in use by the session.
 
 Flags:
 :    Flags field, defined below.
@@ -117,8 +120,6 @@ The Flags field is defined as:
 Reserved:
 :    MUST be zero.  Left for future assignment.
 
-The Flags field is here because I think it might be useful, but I can't
-think how currently.
 
 # Security Considerations
 

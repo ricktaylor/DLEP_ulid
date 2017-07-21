@@ -1,6 +1,6 @@
 
 There exists a class of modems that wish to support the Dynamic Link
-Exchange Protocol [(DLEP)](#I-D.ietf-manet-dlep) but do not present a
+Exchange Protocol [(DLEP)](#RFC8175) but do not present a
 single Layer 2 network domain as required by DLEP. Such devices may be:
 
 * Modems that maintain a varying link to some upstream backbone network

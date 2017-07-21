@@ -4,7 +4,7 @@
 <!ENTITY pandocMiddle   PUBLIC '' 'DLEP_lid.xml'>
 <!ENTITY pandocBack     PUBLIC '' 'appendices.xml'>
 <!ENTITY RFC.5226       PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5226.xml'>
-<!ENTITY DLEP           PUBLIC '' 'http://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-manet-dlep-29.xml'>
+<!ENTITY RFC.8175       PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8175.xml'>
 <!ENTITY RFC.2119       PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
 ]>
 
@@ -15,7 +15,7 @@
 <?rfc compact="yes"?>
 <?rfc comments="yes"?>
 
-<rfc category="std" ipr="trust200902" docName="draft-dlep-lid-00">
+<rfc category="std" ipr="trust200902" docName="draft-dlep-lid-01">
 	<front>
 		<title>Link Identifier Extension to DLEP</title>
 		<author initials="R.T." surname="Taylor" fullname="Rick Taylor">
@@ -44,8 +44,8 @@
 	</middle>
 	<back>
 		<references title="Normative References">
-        	&DLEP;
-			&RFC.2119;
+        	&RFC.2119;
+        	&RFC.8175;
 		</references>
 		<references title="Informative References">
         	&RFC.5226;
