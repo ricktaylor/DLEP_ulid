@@ -15,10 +15,10 @@
 <?rfc compact="yes"?>
 <?rfc comments="yes"?>
 
-<rfc category="std" ipr="trust200902" docName="draft-dlep-lid-01">
+<rfc category="std" ipr="trust200902" docName="draft-dlep-lid-02">
 	<front>
 		<title>Link Identifier Extension to DLEP</title>
-		<author initials="R.T." surname="Taylor" fullname="Rick Taylor">
+		<author initials="R." surname="Taylor" fullname="Rick Taylor">
 			<organization>Airbus Defence &amp; Space</organization>
 			<address>
 				<postal>
@@ -30,6 +30,19 @@
 					<country>UK</country>
 				</postal>
 				<email>rick.taylor@airbus.com</email>
+			</address>
+		</author>
+		<author fullname="Stan Ratliff" initials="S." surname="Ratliff">
+			<organization>VT iDirect</organization>
+			<address>
+				<postal>
+					<street>13861 Sunrise Valley Drive, Suite 300</street>
+					<city>Herndon</city>
+					<region>VA</region>
+					<code>20171</code>
+					<country>USA</country>
+				</postal>
+				<email>sratliff@idirect.net</email>
 			</address>
 		</author>
 		<date />

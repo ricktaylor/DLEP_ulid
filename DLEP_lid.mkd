@@ -32,14 +32,18 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be 
 interpreted as described in BCP 14, RFC 2119 [](#RFC2119).
 
+# Link Identification
+
+
+
 # Operation
 
 To use this extension, as with all DLEP extensions, the extension MUST
 be announced during DLEP session initialization. A router advertises
-support by including the value 'Link Identitifers' (TBD1) in the
-Extension Data Item within the Session Intitialization Message. A modem
-advertises support by including the value 'Link Identitifers' (TBD1) in
-the Extension Data Item within the Session Intitialization Response
+support by including the value 'Link Identifiers' (TBD1) in the
+Extension Data Item within the Session Initialization Message. A modem
+advertises support by including the value 'Link Identifiers' (TBD1) in
+the Extension Data Item within the Session Initialization Response
 Message. If both DLEP peers advertise support for this extension then
 the Link Identifier Data Item MAY be used.
 
@@ -68,7 +72,7 @@ the MAC address of the interface in use for the DLEP session, as per MAC Address
 Data Items. This removes the need for an extra LID length negotiation step
 during Session Initialization.
 
-Identifiers MUST NOT be reused, i.e. an indentifier that has
+Identifiers MUST NOT be reused, i.e. an identifier that has
 been used to refer to one destination MUST NOT be recycled to refer to a
 different destination within the lifetime of a single DLEP session.
 
@@ -82,8 +86,8 @@ numbering space.
 
 ## Link Identifier Data Item
 
-The Link Identifier Data Item MAY be used whenever a MAC Address Data
-Item is defined as useable in core DLEP. A single Link Identifier Data
+The Link Identifier Data Item MAY be used wherever a MAC Address Data
+Item is defined as usable in core DLEP. A single Link Identifier Data
 Item MUST only be used in place of a single MAC Address Data Item. A
 Link Identifier Data Item MUST NOT appear in the same DLEP Message as a
 MAC Address Data Item.
