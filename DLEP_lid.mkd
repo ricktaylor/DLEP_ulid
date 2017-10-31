@@ -1,6 +1,6 @@
 # Introduction
 
-The Dynamic Link Exchange Protocol [(DLEP)](#RFC8175) describes a
+The Dynamic Link Exchange Protocol [DLEP](#RFC8175) describes a
 protocol for modems to advertise the status of wireless links between reachable
 destinations to attached routers. The core specification of the protocol assumes
 that every modem in the radio network has an attached DLEP router, and the MAC
@@ -8,33 +8,22 @@ address of the DLEP interface on the router is used to identify the destination
 in the network for purposes of reporting the state and quality of the link to
 that destination.
 
-This document describes a DLEP Extension allowing modems that do not
-meet the strict requirement that DLEP must be implemented on a single
-Layer 2 domain to use DLEP to describe link state and quality to one or
-more destinations reachable only at Layer 3.
+This document describes a DLEP Extension allowing modems that do not meet the
+strict requirement that DLEP must be implemented on a single Layer 2 domain to
+use DLEP to describe link availability and quality to one or more destinations
+reachable beyond a local or remote device on the Layer 2 domain. A router can
+use this knowledge to influence any routing or flow-control decisions regarding
+traffic to this destination, understanding that such traffic flows via another
+domain.
 
-To enable routers to take advantage of the DLEP protocol this extension
-adds a single enhancement to the DLEP protocol: A new Link Identifier
-Data Item. This Data Item replaces the use of the MAC Address Data Item whenever
-the DLEP destination does not have a router reachable by MAC address.
-
-By using the Link Identifier Data Item, the modem implementation can
-announce the link state and quality to a uniquely identified
-destination in the network, either logical or physical, explicitly
-indicating that the destination is not reachable via a single Layer 2
-domain. A router can use this knowledge to influence any routing or
-flow-control decisions regarding traffic to this destination,
-understanding that such decisions apply at Layer 3.
+To enable devices to take advantage of the DLEP protocol this extension adds a
+single enhancement: A new Link Identifier Data Item. 
 
 ## Requirements
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", 
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be 
 interpreted as described in BCP 14, RFC 2119 [](#RFC2119).
-
-# Link Identification
-
-
 
 # Operation
 
@@ -59,38 +48,39 @@ NOT attempt to re-use the MAC Address Data Item to perform some kind of
 sleight-of-hand, assuming that the router will notice the DLEP Peer Type
 of the modem is special in some way.
 
-Even when the Link Identifiers extension is in use for a DLEP session, both
-peers MUST support sending and receiving Messages concerning DLEP destinations
-using the standard DLEP MAC Address Data Item, as the use of this extension does
-not alter the representation of multicast logical destinations.
+# Link Identification
+
+To identify a non-Layer 2 DLEP Destination, the modem participant in the DLEP
+session adds a Link Identifier Data Item to the relevant Destination Message,
+and (as usual) includes a MAC Address Data Item. 
+
+When paired with a Link Identifier Data Item, the MAC Address Data Item
+describes the MAC address of the node in the network beyond which the non-Layer
+2 DLEP Destination resides. The MAC address MAY belong to the DLEP peer modem,
+if the over-the-air network is not a single Layer 2 domain, or MAY be the MAC
+address of a remote node in the Layer 2 domain that has indicated that it has DLEP
+Destinations reachable beyond it. How such remote availability is advertised is
+beyond the scope of this specification.
 
 ## Identifier Restrictions
 
-Within a single DLEP session, all identifiers used by this extension, both
-logical and physical, MUST be unique, and MUST be of the same octet length as
-the MAC address of the interface in use for the DLEP session, as per MAC Address
-Data Items. This removes the need for an extra LID length negotiation step
-during Session Initialization.
+A Link Indentifier is 4 octets in length. The method for generating identifiers
+is a modem implementation matter and out of scope of this document. Routers MUST
+NOT make any assumptions about the meaning of identifiers, or how identifiers
+are generated.
 
-Identifiers MUST NOT be reused, i.e. an identifier that has
+Within a single DLEP session using this extension all identifiers MUST be
+unique per MAC Address, this means that a non-Layer 2 DLEP Destination is
+uniquely identified by the pair [MAC Address,Link Id].
+
+Identifiers MUST NOT be reused, i.e. a [MAC Address,Link Id] pair that has
 been used to refer to one destination MUST NOT be recycled to refer to a
 different destination within the lifetime of a single DLEP session.
 
-The method for generating identifiers is a modem implementation matter
-and out of scope of this document. Routers MUST NOT make any
-assumptions about the meaning of identifiers, or how identifiers are generated.
-
-Router implementations MUST NOT assume that LIDs will not clash with any MAC
-Address Data Items also in use during the DLEP session, LIDs exist in a separate
-numbering space.
-
-## Link Identifier Data Item
+# Link Identifier Data Item
 
 The Link Identifier Data Item MAY be used wherever a MAC Address Data
-Item is defined as usable in core DLEP. A single Link Identifier Data
-Item MUST only be used in place of a single MAC Address Data Item. A
-Link Identifier Data Item MUST NOT appear in the same DLEP Message as a
-MAC Address Data Item.
+Item is defined as usable in core DLEP.
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -105,13 +95,13 @@ Data Item Type:
 :    TBD2
 
 Length:
-:    Same as the MAC Address Data Item in use by the session.
+:    5
 
 Flags:
 :    Flags field, defined below.
 
 Link Identifier:
-:    The unique identifier of the link destination.  This identifier
+:    The 4 octet unique identifier of the link destination.  This identifier
      has no implicit meaning and is only used to discriminate between multiple links.
 
 The Flags field is defined as:
