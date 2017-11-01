@@ -10,7 +10,8 @@ REFERENCES =
 		
 draft.txt: $(TEMPLATE) $(SOURCES) $(REFERENCES)
 	pandoc2rfc -t $(TEMPLATE) $(SOURCES)
-	#aspell list < draft.txt
+	@echo "Check spelling of:"
+	@aspell list < draft.txt  | sort -u -f 
 	
 draft.html: $(TEMPLATE) $(SOURCES) $(REFERENCES)
 	pandoc2rfc -t $(TEMPLATE) -M $(SOURCES)
