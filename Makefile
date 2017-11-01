@@ -10,6 +10,7 @@ REFERENCES =
 		
 draft.txt: $(TEMPLATE) $(SOURCES) $(REFERENCES)
 	pandoc2rfc -t $(TEMPLATE) $(SOURCES)
+	#aspell list < draft.txt
 	
 draft.html: $(TEMPLATE) $(SOURCES) $(REFERENCES)
 	pandoc2rfc -t $(TEMPLATE) -M $(SOURCES)

@@ -1,23 +1,27 @@
 # Introduction
 
-The Dynamic Link Exchange Protocol [DLEP](#RFC8175) describes a
-protocol for modems to advertise the status of wireless links between reachable
-destinations to attached routers. The core specification of the protocol assumes
-that every modem in the radio network has an attached DLEP router, and the MAC
-address of the DLEP interface on the router is used to identify the destination
-in the network for purposes of reporting the state and quality of the link to
-that destination.
+The [Dynamic Link Exchange Protocol (DLEP)] (#RFC8175) describes a protocol for
+modems to advertise the status of wireless links between reachable destinations
+to attached routers. The core specification of the protocol assumes that every
+modem in the radio network has an attached DLEP router, and requires that the
+MAC address of the DLEP interface on the attached router is used to identify the
+destination in the network for purposes of reporting the state and quality of
+the link to that destination.
 
 This document describes a DLEP Extension allowing modems that do not meet the
 strict requirement that DLEP must be implemented on a single Layer 2 domain to
 use DLEP to describe link availability and quality to one or more destinations
 reachable beyond a local or remote device on the Layer 2 domain. A router can
 use this knowledge to influence any routing or flow-control decisions regarding
-traffic to this destination, understanding that such traffic flows via another
-domain.
+traffic to this destination, understanding that such traffic flows via Layer 3.
+
+A Layer 3 destination may be an attached DLEP router, in the case of a modem
+that provides Layer 3 wide area network connectivity between devices, or a
+logical destination that describes a set of attached subnets, when referring to
+some upstream backbone network infrastructure.
 
 To enable devices to take advantage of the DLEP protocol this extension adds a
-single enhancement: A new Link Identifier Data Item. 
+single enhancement: A new [Link Identifier Data Item](#lidi). 
 
 ## Requirements
 
@@ -27,9 +31,59 @@ interpreted as described in BCP 14, RFC 2119 [](#RFC2119).
 
 # Operation
 
+To refer to a Layer 3 DLEP Destination, the DLEP session participant adds a
+[Link Identifier Data Item](#lidi) to the relevant Destination Message, and (as usual)
+includes a MAC Address Data Item. When paired with a Link Identifier Data Item,
+the MAC Address Data Item describes the MAC address of the node in the network
+beyond which the Layer 3 DLEP Destination resides. The MAC address MAY
+belong to the DLEP peer modem, if the over-the-air network is not a single Layer
+2 domain, or MAY be the MAC address of a remote node in the Layer 2 domain that
+has indicated that it has DLEP Destinations reachable beyond it. How such remote
+destinations are discovered is beyond the scope of this specification.
+
+As only modems are initially aware of Layer 3 DLEP Destinations, Link
+Identifier Data Items referring to a new link MUST first appear in a DLEP
+Destination Up Message from the modem to the router. Once a link has been
+identified in this way, Link Identifier Data Items MAY be used by either DLEP
+participant during the lifetime of a DLEP session. Because of this, a router
+MUST NOT send a DLEP Destination Announce Message containing a Link Identifier
+Data Item referring to a link that has not been mentioned in a prior DLEP
+Destination Up Message.
+
+Because the MAC Address associated with any DLEP Destination Message containing
+a Link Identifier Data Item is not the Layer 2 address of the destination, all
+DLEP Destination Up Messages MUST contain Layer 3 information. In the case of
+modems that provide Layer 3 wide area network connectivity between devices, this
+means one or more IPv4 or IPv6 Address Data Items providing the Layer 3 address
+of the destination. When referring to some upstream backbone network
+infrastructure, this means one or more IPv4 or IPv6 Attached Subnet Data Items,
+for example: '0.0.0.0/0' or '::/0'. This allows the DLEP peer router to
+understand the properties of the link to those routes.
+
+When the DLEP peer router wishes to forward packets to the Layer 3 destination
+or subnet, the MAC address associated with the link MUST be used as the Layer 2
+destination of the packet.
+
+## Identifier Restrictions
+
+A Link identifier is 4 octets in length. The method for generating identifiers
+is a modem implementation matter and out of scope of this document. Routers MUST
+NOT make any assumptions about the meaning of identifiers, or how identifiers
+are generated.
+
+Within a single DLEP session, all link identifiers MUST be unique per MAC
+Address. This means that a Layer 3 DLEP Destination is uniquely identified by
+the pair: {MAC Address,Link Id}.
+
+Identifiers MUST NOT be reused, i.e. a {MAC Address,Link Id} pair that has
+been used to refer to one destination MUST NOT be recycled to refer to a
+different destination within the lifetime of a single DLEP session.
+
+## Negotiation
+
 To use this extension, as with all DLEP extensions, the extension MUST
 be announced during DLEP session initialization. A router advertises
-support by including the value 'Link Identifiers' (TBD1) in the
+support by including the value 'Link Identifiers' (TBD1), [](#tbd), in the
 Extension Data Item within the Session Initialization Message. A modem
 advertises support by including the value 'Link Identifiers' (TBD1) in
 the Extension Data Item within the Session Initialization Response
@@ -48,36 +102,8 @@ NOT attempt to re-use the MAC Address Data Item to perform some kind of
 sleight-of-hand, assuming that the router will notice the DLEP Peer Type
 of the modem is special in some way.
 
-# Link Identification
 
-To identify a non-Layer 2 DLEP Destination, the modem participant in the DLEP
-session adds a Link Identifier Data Item to the relevant Destination Message,
-and (as usual) includes a MAC Address Data Item. 
-
-When paired with a Link Identifier Data Item, the MAC Address Data Item
-describes the MAC address of the node in the network beyond which the non-Layer
-2 DLEP Destination resides. The MAC address MAY belong to the DLEP peer modem,
-if the over-the-air network is not a single Layer 2 domain, or MAY be the MAC
-address of a remote node in the Layer 2 domain that has indicated that it has DLEP
-Destinations reachable beyond it. How such remote availability is advertised is
-beyond the scope of this specification.
-
-## Identifier Restrictions
-
-A Link Indentifier is 4 octets in length. The method for generating identifiers
-is a modem implementation matter and out of scope of this document. Routers MUST
-NOT make any assumptions about the meaning of identifiers, or how identifiers
-are generated.
-
-Within a single DLEP session using this extension all identifiers MUST be
-unique per MAC Address, this means that a non-Layer 2 DLEP Destination is
-uniquely identified by the pair [MAC Address,Link Id].
-
-Identifiers MUST NOT be reused, i.e. a [MAC Address,Link Id] pair that has
-been used to refer to one destination MUST NOT be recycled to refer to a
-different destination within the lifetime of a single DLEP session.
-
-# Link Identifier Data Item
+# Link Identifier Data Item		{#lidi}
 
 The Link Identifier Data Item MAY be used wherever a MAC Address Data
 Item is defined as usable in core DLEP.
@@ -92,7 +118,7 @@ Item is defined as usable in core DLEP.
     
 
 Data Item Type:
-:    TBD2
+:    TBD2, [](#tbd)
 
 Length:
 :    5
@@ -101,7 +127,7 @@ Flags:
 :    Flags field, defined below.
 
 Link Identifier:
-:    The 4 octet unique identifier of the link destination.  This identifier
+:    The 4 octet unique identifier of the Layer 3 destination.  This identifier
      has no implicit meaning and is only used to discriminate between multiple links.
 
 The Flags field is defined as:
@@ -124,12 +150,12 @@ mechanisms or features.
 None of the features introduced by this extension require extra consideration
 by an implementation.
 
-# IANA Considerations
+# IANA Considerations		{#tbd}
 
 Upon approval of this document, IANA is requested to:
 
 * Assign a new value (TBD1) from the Specification Required section of the
-  DLEP Extensions Registry, named "Link Identifiers".
+  DLEP Extensions Registry, named "Link Identifiers".  
   
 * Assign a new value (TBD2) from the Specification Required section of the
   DLEP Data Item Type Values Registry, named "Link Identifier".
