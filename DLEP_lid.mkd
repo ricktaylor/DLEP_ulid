@@ -94,7 +94,7 @@ If a modem requires support for this extension in order to describe
 destinations, and the router does not advertise support, then the modem
 MUST NOT include a Link Identifier Data Item in any DLEP Message.
 However, the modem SHOULD NOT immediately terminate the DLEP session,
-rather it should use session-wide DLEP Data Items to announce general
+rather it SHOULD use session-wide DLEP Data Items to announce general
 information about all reachable destinations via the modem. By doing
 this, a modem allows a router not supporting this extension to at least
 make a best guess at the state of any reachable network. A modem MUST
