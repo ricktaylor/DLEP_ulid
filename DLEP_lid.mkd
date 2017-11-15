@@ -27,7 +27,7 @@ single enhancement: A new [Link Identifier Data Item](#lidi).
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", 
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be 
-interpreted as described in BCP 14, RFC 2119 [](#RFC2119).
+interpreted as described in BCP 14, RFC 2119.
 
 # Operation
 
@@ -166,7 +166,7 @@ Upon approval of this document, IANA is requested to create a new DLEP
 registry, named "Link Identifier Flags".
 
 The following table provides initial registry values and the
-[](#RFC5226) defined policies that should apply to the registry:
+RFC 5226 defined policies that should apply to the registry:
 
 ---------------------------------------------
 Bit         Description/Policy
