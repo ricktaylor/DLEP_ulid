@@ -49,7 +49,7 @@
 		<area>Routing</area>
 		<workgroup>Mobile Ad hoc Networks Working Group</workgroup>
 		<abstract>
-        &pandocAbstract;
+        	&pandocAbstract;
 		</abstract>
 	</front>
 	<middle>
@@ -57,12 +57,12 @@
 	</middle>
 	<back>
 		<references title="Normative References">
-        	&RFC.2119;
-        	&RFC.8175;
+        		&RFC.2119;
+        		&RFC.8175;
 		</references>
 		<references title="Informative References">
-        	&RFC.5226;
-        </references>
+			&RFC.5226;
+		</references>
     	&pandocBack;
 	</back>
 </rfc>
