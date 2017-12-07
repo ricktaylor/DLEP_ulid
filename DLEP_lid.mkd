@@ -160,13 +160,14 @@ Data Item Type:
 :    TBD3, [](#tbd)
 
 Length:
-:    5
+:    The length of the Data Item, by default 5, but may be different if a 
+     [Link Identifier Length Data Item](#lildi) has been announced during session initialization.
 
 Flags:
 :    Flags field, defined below.
 
 Link Identifier:
-:    The 4 octet unique identifier of the Layer 3 destination.  This identifier
+:    The unique identifier of the Layer 3 destination.  This identifier
      has no implicit meaning and is only used to discriminate between multiple links.
 
 The Flags field is defined as:
