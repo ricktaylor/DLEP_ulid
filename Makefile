@@ -7,11 +7,11 @@ SOURCES = \
 	appendices.mkd
 	
 REFERENCES = 
-		
-draft.txt: $(TEMPLATE) $(SOURCES) $(REFERENCES)
+
+draft.txt: $(TEMPLATE) $(SOURCES) $(REFERENCES) safewords.txt
 	pandoc2rfc -t $(TEMPLATE) $(SOURCES)
 	@echo "Check spelling of:"
-	@aspell list < draft.txt  | sort -u -f 
+	@aspell list --lang=en_us --personal=./safewords.txt < draft.txt  | sort -u -f 
 	
 draft.html: $(TEMPLATE) $(SOURCES) $(REFERENCES)
 	pandoc2rfc -t $(TEMPLATE) -M $(SOURCES)
