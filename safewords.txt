@@ -1,0 +1,24 @@
+personal_ws-1.1 en 0
+Alvestrand
+BCP
+Bradner
+Coedkernew
+Defence
+dlep
+DOI
+FZ
+Herndon
+hoc
+IANA
+iDirect
+IETF
+ietf
+manet
+IPv
+LTE
+Narten
+Satterwhite
+TBD
+Subnet
+subnet
+subnets
