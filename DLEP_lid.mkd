@@ -64,7 +64,7 @@ destination of the packet.
 ## Identifier Restrictions
 
 A Link identifier is by default 4 octets in length.  If a modem wishes to use an identifier 
-of a different length, it must be announced using the [Link Identifier Length Data Item](#lildi)
+of a different length, it MUST be announced using the [Link Identifier Length Data Item](#lildi)
 contained in the DLEP Session Initialization Response message sent 
 by the modem to the router.
 
