@@ -28,15 +28,17 @@ interpreted as described in BCP 14, RFC 2119.
 
 # Operation
 
-To refer to a Layer 3 DLEP Destination, the DLEP session participant adds a
-[Link Identifier Data Item](#lidi) to the relevant Destination Message, and (as usual)
-includes a MAC Address Data Item. When paired with a Link Identifier Data Item,
-the MAC Address Data Item describes the MAC address of the node in the network
-beyond which the Layer 3 DLEP Destination resides. The MAC address MAY
-belong to the DLEP peer modem, if the over-the-air network is not a single Layer
-2 domain, or MAY be the MAC address of a remote node in the Layer 2 domain that
-has indicated that it has DLEP Destinations reachable beyond it. How such remote
-destinations are discovered is beyond the scope of this specification.
+To refer to a Layer 3 DLEP Destination, the DLEP session participant adds a 
+[Link Identifier Data Item](#lidi) to the relevant Destination Message, and (as usual) includes a MAC
+Address Data Item. When paired with a Link Identifier Data Item, the MAC Address
+Data Item MUST contain the MAC address of the last reachable node in the Layer 2
+domain beyond which the Layer 3 DLEP Destination resides. For example, if the
+over-the-air network is not a single Layer 2 domain, the MAC Address Data Item
+might be the address of the LAN-side interface of the local modem.
+Alternatively, when used with some kind of backbone infrastructure, the MAC
+Address Data Item would be the address of the last device reachable on the local
+Layer 2 domain. However, how such remote destinations are discovered is beyond
+the scope of this specification.
 
 As only modems are initially aware of Layer 3 DLEP Destinations, Link
 Identifier Data Items referring to a new link MUST first appear in a DLEP
@@ -63,12 +65,12 @@ destination of the packet.
 
 ## Identifier Restrictions
 
-A Link identifier is by default 4 octets in length.  If a modem wishes to use an identifier 
+A link identifier is by default 4 octets in length.  If a modem wishes to use an identifier 
 of a different length, it MUST be announced using the [Link Identifier Length Data Item](#lildi)
 contained in the DLEP Session Initialization Response message sent 
 by the modem to the router.
 
-During the lifetime of a DLEP session, the length of Link Identifiers MUST
+During the lifetime of a DLEP session, the length of link identifiers MUST
 remain constant, i.e. the Length field of the Link Identifier Data Item must not
 alter between destinations.
 
