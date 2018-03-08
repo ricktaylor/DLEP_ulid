@@ -15,9 +15,9 @@
 <?rfc compact="yes"?>
 <?rfc comments="yes"?>
 
-<rfc category="std" ipr="trust200902" docName="draft-ietf-manet-dlep-lid-extension-01">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-manet-dlep-lid-extension-02">
 	<front>
-		<title>Link Identifier Extension to DLEP</title>
+		<title>DLEP Link Identifier Extension</title>
 		<author initials="R." surname="Taylor" fullname="Rick Taylor">
 			<organization>Airbus Defence &amp; Space</organization>
 			<address>

@@ -154,7 +154,7 @@ Item is defined as usable in core DLEP.
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     | Data Item Type                | Length                        |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |  Flags        |            Link Identifier...                 :
+    |                   Link Identifier...                          :
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     
 
@@ -165,22 +165,9 @@ Length:
 :    The length of the Data Item, by default 5, but may be different if a 
      [Link Identifier Length Data Item](#lildi) has been announced during session initialization.
 
-Flags:
-:    Flags field, defined below.
-
 Link Identifier:
 :    The unique identifier of the Layer 3 destination.  This identifier
      has no implicit meaning and is only used to discriminate between multiple links.
-
-The Flags field is defined as:
-
-     0 1 2 3 4 5 6 7 
-    +-+-+-+-+-+-+-+-+
-    |    Reserved   |
-    +-+-+-+-+-+-+-+-+
-
-Reserved:
-:    MUST be zero.  Left for future assignment.
 
 # Security Considerations
 
@@ -203,19 +190,3 @@ Upon approval of this document, IANA is requested to:
   
 * Assign a new value (TBD3) from the Specification Required section of the
   DLEP Data Item Type Values Registry, named "Link Identifier".
-
- 
-##  DLEP Link Identifier Flag
-
-Upon approval of this document, IANA is requested to create a new DLEP
-registry, named "Link Identifier Flags".
-
-The following table provides initial registry values and the
-RFC 5226 defined policies that should apply to the registry:
-
----------------------------------------------
-Bit         Description/Policy
------------ ---------------------------------
-0-7         Unassigned/Specification Required
-
----------------------------------------------
