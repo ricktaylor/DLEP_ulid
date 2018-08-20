@@ -29,7 +29,7 @@ interpreted as described in BCP 14, RFC 2119.
 # Operation
 
 To refer to a Layer 3 DLEP Destination, the DLEP session participant adds a 
-[Link Identifier Data Item](#lidi) to the relevant Destination Message, and (as usual) includes a MAC
+[Link Identifier Data Item](#lid_di) to the relevant Destination Message, and (as usual) includes a MAC
 Address Data Item. When paired with a Link Identifier Data Item, the MAC Address
 Data Item MUST contain the MAC address of the last reachable node in the Layer 2
 domain beyond which the Layer 3 DLEP Destination resides. For example, if the
@@ -66,13 +66,13 @@ destination of the packet.
 ## Identifier Restrictions
 
 A link identifier is by default 4 octets in length.  If a modem wishes to use an identifier 
-of a different length, it MUST be announced using the [Link Identifier Length Data Item](#lildi)
+of a different length, it MUST be announced using the [Link Identifier Length Data Item](#lid_len_di)
 contained in the DLEP Session Initialization Response message sent 
 by the modem to the router.
 
 During the lifetime of a DLEP session, the length of link identifiers MUST
-remain constant, i.e. the Length field of the Link Identifier Data Item must not
-alter between destinations.
+remain constant, i.e. the Length field of the Link Identifier Data Item MUST NOT
+differ between destinations.
 
 The method for generating identifiers is a modem implementation matter and out
 of scope of this document. Routers MUST NOT make any assumptions about the
@@ -111,12 +111,12 @@ of the modem is special in some way.
 
 # New Data Items
 
-This extension introduces two new DLEP Data Items: the [Link Identifier Data Item](#lidi)
+This extension introduces two new DLEP Data Items: the [Link Identifier Data Item](#lid_di)
  used to identify a Layer 3 link at or beyond a destination, and the
-[Link Identifier Length Data Item](#lildi) used to announce the length of Link Identifiers 
+[Link Identifier Length Data Item](#lid_len_di) used to announce the length of Link Identifiers 
 at session initialization. 
 
-## Link Identifier Length Data Item     {#lildi}
+## Link Identifier Length Data Item     {#lid_len_di}
 
 The Link Identifier Length Data Item MUST be used by a DLEP modem implementation to 
 define the length of Link Identifier Data Items if it does not with to use the default 
@@ -144,7 +144,7 @@ Link Identifier Length:
 :    The length, in octets, of Link Identifiers used by the DLEP modem for this session.
 
 
-## Link Identifier Data Item		{#lidi}
+## Link Identifier Data Item		{#lid_di}
 
 The Link Identifier Data Item MAY be used wherever a MAC Address Data
 Item is defined as usable in core DLEP.
@@ -162,8 +162,8 @@ Data Item Type:
 :    TBD3, [](#tbd)
 
 Length:
-:    The length of the Data Item, by default 5, but may be different if a 
-     [Link Identifier Length Data Item](#lildi) has been announced during session initialization.
+:    The length of the Data Item, by default 4, but may be different if a 
+     [Link Identifier Length Data Item](#lid_len_di) has been announced during session initialization.
 
 Link Identifier:
 :    The unique identifier of the Layer 3 destination.  This identifier
@@ -183,7 +183,7 @@ by an implementation.
 Upon approval of this document, IANA is requested to:
 
 * Assign a new value (TBD1) from the Specification Required section of the
-  DLEP Extensions Registry, named "Link Identifiers".  
+  DLEP Extensions Registry, named "Link Identifiers".
  
 * Assign a new value (TBD2) from the Specification Required section of the
   DLEP Data Item Type Values Registry, named "Link Identifier Length".
