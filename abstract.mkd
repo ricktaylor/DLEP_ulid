@@ -1,6 +1,6 @@
 
 There exists a class of modems that would benefit from supporting the 
-Dynamic Link Exchange Protocol [(DLEP)](#RFC8175) but do not present a
+Dynamic Link Exchange Protocol (DLEP) but do not present a
 single Layer 2 network domain as required by DLEP. Such devices may be:
 
 * Modems that maintain a varying link to some upstream backbone network
@@ -16,9 +16,4 @@ single Layer 2 network domain as required by DLEP. Such devices may be:
   routing functionality.
 
 This document introduces an optional extension to the core DLEP specification,
-allowing DLEP to be used between routers and modems that operate in this way.
-
-Note:
-
-* This document is intended as an extension to the core DLEP specification, and
-  readers are expected to be fully conversant with the operation of core DLEP.
+allowing DLEP to be used between routers and modems that operate either of these ways.

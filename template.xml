@@ -3,9 +3,9 @@
 <!ENTITY pandocAbstract PUBLIC '' 'abstract.xml'>
 <!ENTITY pandocMiddle   PUBLIC '' 'DLEP_lid.xml'>
 <!ENTITY pandocBack     PUBLIC '' 'appendices.xml'>
-<!ENTITY RFC.5226       PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5226.xml'>
 <!ENTITY RFC.8175       PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8175.xml'>
 <!ENTITY RFC.2119       PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+<!ENTITY RFC.8174       PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml'>
 ]>
 
 <?rfc toc="yes"?>
@@ -58,10 +58,8 @@
 	<back>
 		<references title="Normative References">
         		&RFC.2119;
+        		&RFC.8174;
         		&RFC.8175;
-		</references>
-		<references title="Informative References">
-			&RFC.5226;
 		</references>
     	&pandocBack;
 	</back>
