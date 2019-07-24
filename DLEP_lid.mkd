@@ -8,39 +8,14 @@ MAC address of the DLEP interface on the attached router be used to identify the
 destination in the network, for purposes of reporting the state and quality of
 the link to that destination.
 
-
-
-
-
-*** Begin random stuff lifted from elsewhere ***
-
 This document describes a DLEP Extension allowing modems that do not meet the
-strict requirement that DLEP must be implemented on a single Layer 2 domain to
+strict requirement above to
 use DLEP to describe link availability and quality to one or more destinations
-reachable beyond a local or remote device on the Layer 2 domain. A router can
+reachable beyond a device on the Layer 2 domain.  
+
+As with core DLEP, a router can
 use this knowledge to influence any routing or flow-control decisions regarding
 traffic to this destination, understanding that such traffic flows via Layer 3.
-
-A Layer 3 destination may be an attached DLEP router, in the case of a modem
-that provides Layer 3 wide area network connectivity between devices, or a
-logical destination that describes a set of attached subnets, when referring to
-some upstream backbone network infrastructure.
-
-A Layer 3 DLEP Destination need not be an addressable node, but could be a logical 
-     grouping of Layer 3 subnets
-     
-How Layer 3 DLEP Destinations are discovered is beyond the scope of this specification.
-
-For example, if the
-over-the-air network is not a single Layer 2 domain, the MAC Address Data Item
-might be the address of the LAN-side interface of the local modem.
-Alternatively, when used with some kind of backbone infrastructure, the MAC
-Address Data Item would be the address of the last device reachable on the local
-Layer 2 domain. 
-
-
-*** End random stuff lifted from elsewhere ***
-
 
 ## Terminology
 
@@ -49,12 +24,33 @@ Local Layer 2 domain:
      DLEP session.
 
 Layer 3 DLEP Destination:
-:    A DLEP Destination that is not addressable within the local Layer 2 domain, but is 
+:    A DLEP Destination that is not directly addressable within the local Layer 2 domain, but is 
      reachable via a node addressable within the local Layer 2 domain.   
      
 Last Addressable Node:
 :    The last node addressable within the local Layer 2 domain on the path from the DLEP
-     router towards the Layer 3 DLEP Destination. 
+     router paricipant towards the Layer 3 DLEP Destination.
+
+
+
+## Applicability
+
+This extension was designed primarily to address the following use cases:
+
+1. A radio system that does not operate in Layer 2 bridge mode, but instead provides 
+Layer 3 connectivity between destinations, often using its own embedded Layer 3 routing function.
+
+2. A point-to-multipoint tunnel system, such as an SD-WAN deployment, where the tunnel 
+provider acts as a modem, having knowledge of the characteristics of the underlay 
+network, and providing that information as availability and metrics between tunnel endpoints in the overlay network.
+
+3. A modem that provides connectivity to a remote wide-area network 
+via a wireless link, but the concept of a Layer 2 reachable remote router does not 
+apply.  An example of such a modem would be an LTE device or 802.11 station that provides variable connectivity 
+to the Internet. 
+
+The authors understand that this list of use-cases is not exhaustive, and this extension 
+may well be applicable to future, currently unforeseen, use-cases.
 
 
 ## Requirements
@@ -99,14 +95,15 @@ When the DLEP peer router wishes to route packets to the Layer 3 DLEP Destinatio
 the MAC address associated with the Last Addressable Node MUST be used as the Layer 2
 destination of the packet, if it wishes to use the modem network to forward the packet.
 
-As most mainstream routers expect to populate their routing 
+As most commercially available routers expect to populate their routing 
 information base with the IP address of the next hop router towards a destination, implementations
 supporting this extension SHOULD announce at least one valid IPv4 or IPv6 addresses
-of the Last Addressable Node.
+of the Last Addressable Node, this is to remove the need for the router to use an additional IP 
+address resolution protocol before adding the route to its routing information base.
 
 If the Last Addressable Node is not the DLEP peer modem, then the modem MUST also
 announce a DLEP Destination with the required MAC Address without including
-a Link Identifier Data Item, as the Last Addressable Node is itself a valid DLEP Destination.
+a Link Identifier Data Item, as the Last Addressable Node is a valid DLEP Destination.
 
 ## Identifier Restrictions
 
@@ -135,9 +132,9 @@ different destination within the lifetime of a single DLEP session.
 
 To use this extension, as with all DLEP extensions, the extension MUST
 be announced during DLEP session initialization. A router advertises
-support by including the value 'Link Identifiers' (TBD1), [](#tbd), in the
+support by including the value 'Link Identifiers', [TBD1](#tbd), in the
 Extension Data Item within the Session Initialization Message. A modem
-advertises support by including the value 'Link Identifiers' (TBD1) in
+advertises support by including the value 'Link Identifiers' in
 the Extension Data Item within the Session Initialization Response
 Message. If both DLEP peers advertise support for this extension then
 Link Identifier Data Items can be included in DLEP Messages.
@@ -173,7 +170,7 @@ Message, if the specified length is not the default value of 4 octets.
     
 
 Data Item Type:
-:    TBD2, [](#tbd)
+:    [TBD2](#tbd)
 
 Length:
 :    2
@@ -200,7 +197,7 @@ Item is defined as usable in core DLEP.
     
 
 Data Item Type:
-:    TBD3, [](#tbd)
+:    [TBD3](#tbd)
 
 Length:
 :    The length of the Data Item, by default 4, but may be different if a 
@@ -209,6 +206,8 @@ Length:
 Link Identifier:
 :    The unique identifier of the Layer 3 DLEP Destination.  This Link Identifier
      has no implicit meaning and is only used to discriminate between multiple links.
+
+
 
 # Security Considerations
 
