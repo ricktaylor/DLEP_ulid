@@ -27,9 +27,10 @@ Layer 3 DLEP Destination:
 :    A DLEP Destination that is not directly addressable within the local Layer 2 domain, but is 
      reachable via a node addressable within the local Layer 2 domain.   
      
-Last Addressable Node:
+Gateway Node:
 :    The last device with a MAC address reachable in the local Layer 2 domain on the path from the DLEP
-     router participant, towards the Layer 3 DLEP Destination.
+     router participant, towards the Layer 3 DLEP Destination.  This device is commonly the DLEP peer modem
+     but could be another DLEP Destination in the Layer 2 domain.
 
 
 
@@ -66,7 +67,7 @@ appear in all capitals, as shown here.
 To refer to a Layer 3 DLEP Destination, the DLEP session participant adds a 
 [Link Identifier Data Item](#lid_di) to the relevant Destination Message, and (as usual) includes a MAC
 Address Data Item. When paired with a Link Identifier Data Item, the MAC Address
-Data Item MUST contain the MAC address of the Last Addressable Node. 
+Data Item MUST contain the MAC address of the Gateway Node. 
 
 As only modems are initially aware of Layer 3 DLEP Destinations, Link
 Identifier Data Items referring to a new link MUST first appear in a DLEP
@@ -92,18 +93,15 @@ for example: '0.0.0.0/0' or '::/0'. This allows the DLEP peer router to
 understand the properties of the link to those routes.
 
 When the DLEP peer router wishes to route packets to the Layer 3 DLEP Destination, 
-the MAC address associated with the Last Addressable Node MUST be used as the Layer 2
+the MAC address associated with the Gateway Node MUST be used as the Layer 2
 destination of the packet, if it wishes to use the modem network to forward the packet.
 
 As routers populate their routing 
 information base with the IP address of the next hop router towards a destination, implementations
 supporting this extension SHOULD announce at least one valid IPv4 or IPv6 addresses
-of the Last Addressable Node, this is to remove the need for the router to use an additional IP 
-address resolution protocol before adding the route to its routing information base. 
-To facilitate this, if the Last Addressable Node is not the DLEP peer modem, then the modem SHOULD 
-announce a DLEP Destination with the MAC Address of the Last Addressable Node, without including
-a Link Identifier Data Item, but including the required IP address information, as the Last Addressable Node 
-is itself a valid DLEP Destination.
+of the Gateway Node, this removes the need for the router to use an additional IP 
+address resolution protocol before adding the route to its routing information base.
+
 
 ## Identifier Restrictions
 
