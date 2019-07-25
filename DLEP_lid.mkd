@@ -28,8 +28,8 @@ Layer 3 DLEP Destination:
      reachable via a node addressable within the local Layer 2 domain.   
      
 Last Addressable Node:
-:    The last node addressable within the local Layer 2 domain on the path from the DLEP
-     router paricipant towards the Layer 3 DLEP Destination.
+:    The last device with a MAC address reachable in the local Layer 2 domain on the path from the DLEP
+     router participant, towards the Layer 3 DLEP Destination.
 
 
 
@@ -49,7 +49,7 @@ via a wireless link, but the concept of a Layer 2 reachable remote router does n
 apply.  An example of such a modem would be an LTE device or 802.11 station that provides variable connectivity 
 to the Internet. 
 
-The authors understand that this list of use-cases is not exhaustive, and this extension 
+This list of use-cases is not exhaustive, and this extension 
 may well be applicable to future, currently unforeseen, use-cases.
 
 
@@ -101,9 +101,6 @@ supporting this extension SHOULD announce at least one valid IPv4 or IPv6 addres
 of the Last Addressable Node, this is to remove the need for the router to use an additional IP 
 address resolution protocol before adding the route to its routing information base.
 
-If the Last Addressable Node is not the DLEP peer modem, then the modem MUST also
-announce a DLEP Destination with the required MAC Address without including
-a Link Identifier Data Item, as the Last Addressable Node is a valid DLEP Destination.
 
 ## Identifier Restrictions
 
