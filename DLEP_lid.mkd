@@ -95,12 +95,15 @@ When the DLEP peer router wishes to route packets to the Layer 3 DLEP Destinatio
 the MAC address associated with the Last Addressable Node MUST be used as the Layer 2
 destination of the packet, if it wishes to use the modem network to forward the packet.
 
-As most commercially available routers expect to populate their routing 
+As routers populate their routing 
 information base with the IP address of the next hop router towards a destination, implementations
 supporting this extension SHOULD announce at least one valid IPv4 or IPv6 addresses
 of the Last Addressable Node, this is to remove the need for the router to use an additional IP 
-address resolution protocol before adding the route to its routing information base.
-
+address resolution protocol before adding the route to its routing information base. 
+To facilitate this, if the Last Addressable Node is not the DLEP peer modem, then the modem SHOULD 
+announce a DLEP Destination with the MAC Address of the Last Addressable Node, without including
+a Link Identifier Data Item, but including the required IP address information, as the Last Addressable Node 
+is itself a valid DLEP Destination.
 
 ## Identifier Restrictions
 
